@@ -4,12 +4,16 @@
   padding: 0;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family:-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   background-color:rgb(0, 0, 0);
   color: #e7e7e7;  
   min-height: 100vh;
-  line-height: 1.5;
+  line-height: 1.6;
   overflow-x: hidden;
   overflow-y: auto;
 }
@@ -24,11 +28,11 @@ body {
 }
 .layer-blur {
   position: absolute;
-  top: 20%;
-  right: 0;
-  width: 30rem;
+  top: 15%;
+  right: -5%;
+  width: 35rem;
   height: 0;
-  box-shadow: 0 0 700px 15px rgb(255, 255, 255);
+  box-shadow: 0 0 800px 20px rgba(127, 66, 167, 0.4);
   rotate: -30deg;
   z-index: -1;
 }
@@ -45,14 +49,39 @@ header {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1.5rem 0;
   z-index: 100;
+  background: rgba(0, 0, 0, 0.5);
+  border-radius: 10px;
+  margin: 1rem 0;
+  padding: 1.5rem 2rem;
+}
+
+/* Apply backdrop-filter for browsers that support it */
+@supports (backdrop-filter: blur(10px)) or (-webkit-backdrop-filter: blur(10px)) {
+  header {
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    background: rgba(0, 0, 0, 0.3);
+  }
 }
 
 header h1 {
   margin: 0;
   font-size: 3rem;
-  font-weight: 300;
+  font-weight: 400;
+  color: #e7e7e7;
+  background: linear-gradient(135deg, #e7e7e7 0%, #a7a7a7 50%, #7f42a7 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Fallback for browsers that don't support background-clip */
+@supports not (background-clip: text) {
+  header h1 {
+    background: none;
+    color: #e7e7e7;
+  }
 }
 
 nav {
@@ -67,12 +96,20 @@ nav a {
   letter-spacing: 0.1rem;
   color: inherit;
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: all 0.3s ease;
   z-index: 999;
+  position: relative;
 }
 
 nav a:hover {
-  color: #a7a7a7;
+  color: #7f42a7;
+  transform: translateY(-2px);
+}
+
+nav a:focus-visible {
+  outline: 2px solid #7f42a7;
+  outline-offset: 4px;
+  border-radius: 4px;
 }
 
 .btn-Login {
@@ -80,15 +117,24 @@ nav a:hover {
   color: black;
   padding: 0.5rem 1.5rem;
   border-radius: 50px;
-  border: none;
+  border: 1px solid transparent;
   cursor: pointer;
   font-weight: 500;
   font-size: 1rem;
-  transition: background-color 0.2s ease;
+  transition: all 0.3s ease;
   z-index: 999;
+  box-shadow: 0 4px 15px rgba(167, 167, 167, 0.2);
 }
+
 .btn-Login:hover {
   background-color: #8f8f8f;
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(167, 167, 167, 0.3);
+}
+
+.btn-Login:focus-visible {
+  outline: 2px solid #7f42a7;
+  outline-offset: 4px;
 }
 
 /* MAIN CONTENT */
@@ -118,9 +164,9 @@ main {
   height: 2.5rem;
   border-radius: 50px;
   background-size: 200%;
-  background : linear-gradient(to right, #656565, #7f42a7, #656565, #6600c5, #5300a0, #757575);
-  animation: animationGradient 2.5s linear infinite;
-  box-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
+  background : linear-gradient(to right, #7f42a7, #9b59b6, #6600c5, #7f42a7, #5300a0, #9b59b6);
+  animation: animationGradient 3s ease-in-out infinite;
+  box-shadow: 0 0 25px rgba(127, 66, 167, 0.5), 0 0 50px rgba(127, 66, 167, 0.3);
   margin-bottom: 4rem;
   z-index: 15;
 }
@@ -139,23 +185,27 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: 0.5s ease;
+  transition: all 0.3s ease;
   cursor: pointer;
-
 }
 
 .tag-box .tag:hover {
-  color: #5300a0;
-  
+  color: #7f42a7;
+  transform: scale(0.98);
+}
+
+.tag-box .tag:focus-visible {
+  outline: 2px solid #7f42a7;
+  outline-offset: 4px;
 }
 
 .content h1 {
   font-size: 3rem;
-  font-weight: 600;
-  letter-spacing: 0.1rem;
+  font-weight: 700;
+  letter-spacing: 0.15rem;
   margin: 2rem 0;
   line-height: 1.2;
-  text-shadow: 0 0 10px rgba(128, 128, 128, 0.418);
+  text-shadow: 0 0 20px rgba(127, 66, 167, 0.5);
   position: relative;
   z-index: 12;
   clear: both;
@@ -164,8 +214,9 @@ main {
 .description {
   font-size: 1.2rem;
   letter-spacing: 0.05rem;
+  line-height: 1.8;
   max-width: 35rem;
-  color: gray;
+  color: #b8b8b8;
   position: relative;
   z-index: 12;
 }
@@ -180,24 +231,32 @@ main {
 
 .btn-learn-more {
   text-decoration: none;
-  border: 1px solid #2a2a2a;
+  border: 2px solid #7f42a7;
   padding: 0.7rem 1.2rem;
   border-radius: 50px;
   font-size: 1.2rem;
   font-weight: 600;
   letter-spacing: 0.1em;
-  transition: background-color 0.2s ease;
+  transition: all 0.3s ease;
   color: #7f42a7;
   margin-top: 2rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  white-space: nowrap; /* prevents text from breaking */
-
+  white-space: nowrap;
+  box-shadow: 0 4px 15px rgba(127, 66, 167, 0.2);
 }
 
 .btn-learn-more:hover {
-  background-color: #1a1a1a;
+  background-color: #7f42a7;
+  color: white;
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(127, 66, 167, 0.4);
+}
+
+.btn-learn-more:focus-visible {
+  outline: 2px solid #7f42a7;
+  outline-offset: 4px;
 }
 
 .btn-get-started {
@@ -206,20 +265,29 @@ main {
   color: black;
   padding: 0.5rem 1.5rem;
   border-radius: 50px;
+  border: 2px solid transparent;
   font-size: 1.2rem;
   font-weight: 600;
   letter-spacing: 0.05em;
-  transition: background-color 0.2s ease;
+  transition: all 0.3s ease;
   margin-top: 2rem;
-  display: flex;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  white-space: nowrap; /* prevents text from breaking */
-
+  white-space: nowrap;
+  box-shadow: 0 4px 15px rgba(211, 211, 211, 0.3);
 }
+
 .btn-get-started:hover {
-  background-color: gray;
+  background-color: #7f42a7;
+  color: white;
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(127, 66, 167, 0.4);
+}
+
+.btn-get-started:focus-visible {
+  outline: 2px solid #7f42a7;
+  outline-offset: 4px;
 }
 
 .robot-3d {
@@ -234,20 +302,41 @@ main {
 
 
 
-/* TABLET RESPONSIVE
-@media (max-width: 1300px){
-  header{
-    padding: 1rem 0.5rem;
+/* TABLET RESPONSIVE */
+@media (max-width: 1300px) and (min-width: 769px) {
+  header {
+    padding: 1rem 1.5rem;
+    margin: 0.5rem 0;
   }
+  
+  nav {
+    gap: 2rem;
+  }
+  
   .content {
-    margin-top: 85%;
+    margin-top: 5rem;
+    margin-left: 5%;
+    max-width: 35rem;
   }
+  
+  .content h1 {
+    font-size: 2.5rem;
+  }
+  
+  .description {
+    font-size: 1.1rem;
+  }
+  
   .robot-3d {
-    scale: 0.8;
-    top: -20;
-    right: 2%;
+    scale: 0.7;
+    top: 5%;
+    right: 0%;
   }
-} */
+  
+  .tag-box {
+    width: 16rem;
+  }
+}
 
 
 
